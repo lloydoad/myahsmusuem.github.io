@@ -1,0 +1,95 @@
+<!Doctype <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Myah's Musuem</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="./images/favicon.ico.png"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <style>
+        .showEntry {
+            opacity: 1;
+        }
+        .hideEntry {
+            opacity: 0;
+        }
+        .strikethroughText {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h2 class="main-title">Myah's Musuem</h4>
+
+        <div class="main-card-container" >
+            <div id="newEntryCard" class="card-object horizontal-card" v-bind:class="{ showEntry: isShowingEntry, hideEntry: isHidingEntry }">
+                <div class="row card-object-title">
+                    <h6 class="ten columns card-object-title-text">{{newPostTitle}}</h6>
+                    <img v-on:click="hideJournalEntry" class="two columns card-object-accessory" src="./images/crossSymbol.png">
+                </div>
+                <form style="margin:0px">
+                    <textarea v-model="textFieldData" style="margin: 0px; height: 56%" class="u-full-width" placeholder="You can't delete journal entries :)))"></textarea>
+                    <button v-on:click="updateJournals" class="button card-object-submit-button" type="button">Post</button>
+                </form>
+            </div>
+            <div class="card-object tall-vertical-card">
+                <div class="row card-object-title">
+                    <h6 class="ten columns card-object-title-text">Journal</h6>
+                    <img v-on:click="showJournalEntry" class="two columns card-object-accessory" src="./images/addSymbol.png" name="addJournalButton">
+                </div>
+                <ul>
+                    <li v-for="journal in pastJournals" style="list-style:none">
+                        <p class="card-object-paragraph">{{journal.entry}}</p>
+                        <p class="card-object-date">{{journal.date}}</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="stack-column">
+                <div class="card-object vertical-card">
+                        <div class="row card-object-title">
+                            <h6 class="card-object-title-text">Quotables</h6>
+                        </div>
+                        <div id="quotesApp" >
+                            <div v-for="quote in quoteOfDay">
+                                <p class="card-object-paragraph">{{quote.quote}}</p>
+                                <p class="card-object-date">{{quote.author}}</p>
+                            </div>
+                        </div>
+                </div>
+                <div class="card-object vertical-card">
+                        <div class="row card-object-title">
+                            <h6 class="ten columns card-object-title-text">Wish-List</h6>
+                            <img v-on:click="showJournalEntry" class="two columns card-object-accessory" src="./images/addSymbol.png" name="addWishList">
+                        </div>
+                        <p style="height:auto" v-for="wish in wishList" class="card-object-paragraph" >
+                            <label>
+                                <input v-model="wish.done" type="checkbox" checked="checked" />
+                                <span v-bind:class="{ strikethroughText: wish.done }" class="card-object-paragraph">{{wish.item}}</span>
+                            </label>
+                        </p>
+                        <button v-on:click="deleteCheckedWishes" class="button delete-button" type="button">Delete Checked</button>
+                </div>
+            </div>
+            <div class="stack-column stack-column-extension">
+                    <div class="card-object vertical-card">
+                        <iframe src="https://open.spotify.com/embed/user/spotify/playlist/37i9dQZEVXcOFjXt2Lye4o" width="100%" height="100%" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                    </div>
+                    <div class="card-object vertical-card">
+                            <a class="twitter-timeline" data-width="100%" data-height="100%" data-theme="dark" href="https://twitter.com/MyahTom?ref_src=twsrc%5Etfw">
+                                Tweets by MyahTom
+                            </a> 
+                    </div>
+                </div>
+        </div>
+    </div>
+    
+    <p class="footer row u-full-width ">Made with ♥️ by Lloydoad</p>
+
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
